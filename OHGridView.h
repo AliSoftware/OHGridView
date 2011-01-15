@@ -1,6 +1,5 @@
 //
-//  GridView.h
-//  Clementine
+//  OHGridView.h
 //
 //  Created by Olivier on 02/09/10.
 //  Copyright 2010 AliSoftware. All rights reserved.
@@ -11,10 +10,10 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // MARK: -
-// MARK: GridViewCell
+// MARK: OHGridViewCell
 /////////////////////////////////////////////////////////////////////////////
 
-@interface GridViewCell : UIView {
+@interface OHGridViewCell : UIView {
 	NSIndexPath* indexPath;
 	UIImageView* imageView;
 	UILabel* textLabel;
@@ -28,27 +27,27 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // MARK: -
-// MARK: GridView
+// MARK: OHGridView
 /////////////////////////////////////////////////////////////////////////////
 
 
-@class GridView;
-@protocol GridViewDataSource
--(NSUInteger)numberOfItemsInGridView:(GridView*)aGridView;
--(GridViewCell*)gridView:(GridView*)aGridView cellAtIndexPath:(NSIndexPath*)indexPath;
+@class OHGridView;
+@protocol OHGridViewDataSource
+-(NSUInteger)numberOfItemsInGridView:(OHGridView*)aGridView;
+-(OHGridViewCell*)gridView:(OHGridView*)aGridView cellAtIndexPath:(NSIndexPath*)indexPath;
 @end
 
-@protocol GridViewDelegate <NSObject>
+@protocol OHGridViewDelegate <NSObject>
 @optional
--(void)gridView:(GridView*)aGridView willDisplayCell:(GridViewCell*)aCell forIndexPath:(NSIndexPath*)indexPath;
--(void)gridView:(GridView*)aGridView didSelectCellAtIndexPath:(NSIndexPath*)indexPath;
+-(void)gridView:(OHGridView*)aGridView willDisplayCell:(OHGridViewCell*)aCell forIndexPath:(NSIndexPath*)indexPath;
+-(void)gridView:(OHGridView*)aGridView didSelectCellAtIndexPath:(NSIndexPath*)indexPath;
 @end
 
 /////////////////////////////////////////////////////////////////////////////
 
-@interface GridView : UIScrollView {
-	id<GridViewDelegate> delegate;
-	id<GridViewDataSource> dataSource;
+@interface OHGridView : UIScrollView {
+	id<OHGridViewDelegate> delegate;
+	id<OHGridViewDataSource> dataSource;
 	
 	NSUInteger columnsCount;
 	CGFloat rowHeight;
@@ -58,10 +57,10 @@
 	NSMutableSet* visibleCells;
 	NSMutableSet* recyclePool;
 }
--(GridViewCell*)dequeueReusableCell;
+-(OHGridViewCell*)dequeueReusableCell;
 -(void)reloadData;
-@property(nonatomic,assign) id<GridViewDelegate> delegate;
-@property(nonatomic,assign) id<GridViewDataSource> dataSource;
+@property(nonatomic,assign) id<OHGridViewDelegate> delegate;
+@property(nonatomic,assign) id<OHGridViewDataSource> dataSource;
 @property(nonatomic,assign) NSUInteger columnsCount;
 @property(nonatomic,assign) CGFloat rowHeight;
 @property(nonatomic,assign) CGFloat marginWidth;

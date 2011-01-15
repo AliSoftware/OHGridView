@@ -17,17 +17,17 @@
 			 @"mail",@"map",@"notes",@"photo",@"tools",@"wallpaper",@"weather",
 			 nil];
 
-	((GridView*)self.view).rowHeight = 100;
-	((GridView*)self.view).columnsCount = 2;
+	((OHGridView*)self.view).rowHeight = 100;
+	((OHGridView*)self.view).columnsCount = 2;
 }
 
--(NSUInteger)numberOfItemsInGridView:(GridView *)aGridView {
+-(NSUInteger)numberOfItemsInGridView:(OHGridView *)aGridView {
 	return [items count];
 }
--(GridViewCell*)gridView:(GridView *)aGridView cellAtIndexPath:(NSIndexPath *)indexPath {
-	GridViewCell* cell = [aGridView dequeueReusableCell];
+-(OHGridViewCell*)gridView:(OHGridView *)aGridView cellAtIndexPath:(NSIndexPath *)indexPath {
+	OHGridViewCell* cell = [aGridView dequeueReusableCell];
 	if (!cell) {
-		cell = [[[GridViewCell alloc] initWithFrame:CGRectZero] autorelease];
+		cell = [[[OHGridViewCell alloc] initWithFrame:CGRectZero] autorelease];
 		cell.backgroundColor = [UIColor grayColor];
 	}
 	
@@ -38,7 +38,7 @@
 	
 	return cell;
 }
--(void)gridView:(GridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath {
+-(void)gridView:(OHGridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath {
 	NSUInteger idx = indexPath.section + aGridView.columnsCount*indexPath.row;
 	NSString* msg = [items objectAtIndex:idx];
 	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Tap" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -50,7 +50,7 @@
 	return YES;
 }
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration {
-	((GridView*)self.view).columnsCount = UIInterfaceOrientationIsPortrait(interfaceOrientation) ? 2 : 4;
+	((OHGridView*)self.view).columnsCount = UIInterfaceOrientationIsPortrait(interfaceOrientation) ? 2 : 4;
 }
 
 -(void)viewDidUnload {

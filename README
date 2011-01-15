@@ -3,12 +3,12 @@ Its API is very similar to the API of UITableView : it can reuses/recycle cells 
 
 You can configure its properties like rowHeight, columnCount, É
 
-Then, to use it, you simply have to implement the methods of the GridViewDataSource protocol, like you would do for a UITableView:
--(NSUInteger)numberOfItemsInGridView:(GridView *)aGridView;
--(GridViewCell*)gridView:(GridView *)aGridView cellAtIndexPath:(NSIndexPath *)indexPath;
+Then, to use it, you simply have to implement the methods of the OHGridViewDataSource protocol, like you would do for a UITableView:
+-(NSUInteger)numberOfItemsInGridView:(OHGridView *)aGridView;
+-(OHGridViewCell*)gridView:(OHGridView *)aGridView cellAtIndexPath:(NSIndexPath *)indexPath;
 
 You can also implement the GridViewDelegate protocol especially to handle when a cell is tapped:
--(void)gridView:(GridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath;
+-(void)gridView:(OHGridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath;
 
 
 See the "GridViewExample" project for a basic usage example (including changing the number of columns used when the iPhone orientation changes)

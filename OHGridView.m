@@ -1,23 +1,22 @@
 //
-//  GridView.m
-//  Clementine
+//  OHGridView.m
 //
 //  Created by Olivier on 02/09/10.
 //  Copyright 2010 AliSoftware. All rights reserved.
 //
 
-#import "GridView.h"
+#import "OHGridView.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // MARK: -
-// MARK: GridViewCell
+// MARK: OHGridViewCell
 /////////////////////////////////////////////////////////////////////////////
 
-@interface GridViewCell()
+@interface OHGridViewCell()
 @property(nonatomic,retain) NSIndexPath* indexPath;
 @end
 
-@implementation GridViewCell
+@implementation OHGridViewCell
 @synthesize indexPath;
 @synthesize imageView, textLabel;
 
@@ -73,7 +72,7 @@
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	GridView* gridView = (GridView*)self.superview;
+	OHGridView* gridView = (OHGridView*)self.superview;
 	if ([gridView.delegate respondsToSelector:@selector(gridView:didSelectCellAtIndexPath:)])
 		[gridView.delegate gridView:gridView didSelectCellAtIndexPath:self.indexPath];
 }
@@ -86,10 +85,10 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // MARK: -
-// MARK: GridView
+// MARK: OHGridView
 /////////////////////////////////////////////////////////////////////////////
 
-@implementation GridView
+@implementation OHGridView
 @synthesize delegate, dataSource;
 @synthesize columnsCount, rowHeight, marginWidth;
 
@@ -166,7 +165,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
--(GridViewCell*)dequeueReusableCell {
+-(OHGridViewCell*)dequeueReusableCell {
 	id obj = [recyclePool anyObject];
 	if (obj) {
 		[[obj retain] autorelease];
@@ -175,8 +174,8 @@
 	return obj;
 }
 
--(GridViewCell*)visibleCellForIndexPath:(NSIndexPath*)indexPath {
-	for(GridViewCell* cell in visibleCells) {
+-(OHGridViewCell*)visibleCellForIndexPath:(NSIndexPath*)indexPath {
+	for(OHGridViewCell* cell in visibleCells) {
 		if (cell.indexPath == indexPath) {
 			return cell;
 		}
@@ -208,7 +207,7 @@
 		for (NSUInteger col= 0; col < self.columnsCount; ++col) {
 			if (row*columnsCount+col>=itemsCount) return;
 			NSIndexPath* path = [NSIndexPath indexPathForRow:row inSection:col];
-			GridViewCell* cell = [self visibleCellForIndexPath:path];
+			OHGridViewCell* cell = [self visibleCellForIndexPath:path];
 			if (!cell) {
 				cell = [self.dataSource gridView:self cellAtIndexPath:path];
 				cell.indexPath = path;
