@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "OHGridView.h"
 
-@interface GridViewExampleViewController : UIViewController <OHGridViewDelegate, OHGridViewDataSource> {
+@interface GridViewExampleViewController : UIViewController <UIAlertViewDelegate, OHGridViewDelegate, OHGridViewDataSource> {
 	NSArray* items;
 }
 @end

@@ -15,6 +15,7 @@
 @interface OHGridViewCell()
 @property(nonatomic,retain) NSIndexPath* indexPath;
 @property(nonatomic,assign) BOOL selected;
+-(void)setSelected:(BOOL)sel animated:(BOOL)animated;
 @end
 
 @implementation OHGridViewCell
@@ -85,13 +86,29 @@
 }
 
 -(void)setSelected:(BOOL)sel {
-	if (sel && selectedBackgroundView) {
-		[backgroundView removeFromSuperview];
-		[self insertSubview:selectedBackgroundView atIndex:0];
-	} else {
-		[selectedBackgroundView removeFromSuperview];
-		[self insertSubview:backgroundView atIndex:0];
-	}
+	[self setSelected:sel animated:YES];
+}
+-(void)setSelected:(BOOL)sel animated:(BOOL)animated {
+	NSTimeInterval duration = animated ? 0.5f : 0.f;
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 40000 
+	[UIView beginAnimations:@"selected" context:NULL];
+	[UIView setAnimationDuration:duration];
+#else
+	[UIView transitionWithView:self duration:duration options:UIViewAnimationOptionShowHideTransitionViews animations:^(void)
+	 {
+#endif
+		 if (sel && selectedBackgroundView) {
+			 backgroundView.alpha = 0.f;
+			 selectedBackgroundView.alpha = 1.f;
+		 } else {
+			 selectedBackgroundView.alpha = 0.f;
+			 backgroundView.alpha = 1.f;
+		 }
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 40000
+	 } completion:nil];
+#else
+	[UIView commitAnimations];
+#endif
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -120,11 +137,9 @@
 		
 		backgroundView.frame = self.bounds;
 		backgroundView.userInteractionEnabled = NO;
+		[self setSelected:self.selected animated:NO]; // update
 		
-		if ([selectedBackgroundView superview]!=self) {
-			// If we don't have selectedBackgroundView or we have one but not currently displayed (= cell not selected)
-			[self insertSubview:view atIndex:0];
-		}
+		[self insertSubview:view atIndex:0];
 	}
 }
 
@@ -138,11 +153,9 @@
 		
 		selectedBackgroundView.frame = self.bounds;
 		selectedBackgroundView.userInteractionEnabled = NO;
+		[self setSelected:self.selected animated:NO]; // update
 		
-		if (backgroundView && [backgroundView superview]!=self) {
-			// If we have a backgroundView but it is not currently displayed (= cell selected)
-			[self insertSubview:view atIndex:0];
-		}
+		[self insertSubview:view atIndex:backgroundView?1:0];
 	}
 }
 
@@ -181,7 +194,7 @@
 	recyclePool = [[NSMutableSet alloc] init];
 	columnsCount = 3;
 	rowHeight = 200.f;
-	marginWidth = 0.5f;
+	marginWidth = 1.0f;
 	self.clipsToBounds = YES;
 }
 - (id) initWithCoder:(NSCoder*)aDecoder
@@ -229,11 +242,15 @@
 	[self setNeedsLayout];
 }
 
+-(NSInteger)indexForIndexPath:(NSIndexPath*)indexPath {
+	return indexPath ? (indexPath.section + indexPath.row * self.columnsCount) : -1;
+}
+
 -(void)setColumnsCount:(NSUInteger)val {
 	[self willChangeValueForKey:@"columnsCount"];
-	NSInteger selectedIdx = (indexPathForSelectedCell.section + indexPathForSelectedCell.row*columnsCount);
+	NSInteger selectedIdx = [self indexForIndexPath:indexPathForSelectedCell];
 	columnsCount = val;
-	indexPathForSelectedCell = [NSIndexPath indexPathForRow:(selectedIdx/val) inSection:(selectedIdx%val)];
+	indexPathForSelectedCell = (selectedIdx<0) ? nil : [NSIndexPath indexPathForRow:(selectedIdx/val) inSection:(selectedIdx%val)];
 	[self didChangeValueForKey:@"columnsCount"];
 	
 	// as previous index paths for some columns may not be accessible anymore, we need to recreate it all
@@ -254,13 +271,20 @@
 	[self didChangeValueForKey:@"marginWidth"];	
 }
 
+-(void)deselectSelectedCellsAnimated:(BOOL)animated {
+	[self setIndexPathForSelectedCell:nil animated:animated];
+}
+
 -(void)setIndexPathForSelectedCell:(NSIndexPath *)indexPath {
+	[self setIndexPathForSelectedCell:indexPath animated:YES];
+}
+-(void)setIndexPathForSelectedCell:(NSIndexPath *)indexPath animated:(BOOL)animated {
 	if (indexPath != indexPathForSelectedCell) {
 		[self willChangeValueForKey:@"indexPathForSelectedCell"];
-		[self visibleCellForIndexPath:indexPathForSelectedCell].selected = NO;
+		[[self visibleCellForIndexPath:indexPathForSelectedCell] setSelected:NO animated:animated];
 		[indexPathForSelectedCell release];
 		indexPathForSelectedCell = [indexPath retain];
-		[self visibleCellForIndexPath:indexPathForSelectedCell].selected = YES;
+		[[self visibleCellForIndexPath:indexPathForSelectedCell] setSelected:YES animated:animated];
 		[self didChangeValueForKey:@"indexPathForSelectedCell"];
 	}
 }
@@ -273,12 +297,10 @@
 		[[cell retain] autorelease];
 		[recyclePool removeObject:cell];
 	}
-	if ([cell.selectedBackgroundView superview]==cell) {
-		[cell.selectedBackgroundView removeFromSuperview];
-		[cell insertSubview:cell.backgroundView atIndex:0];
-	}
 	cell.backgroundView.frame = cell.bounds;
 	cell.selectedBackgroundView.frame = cell.bounds;
+	cell.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+	cell.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 	cell.selected = NO;
 	return cell;
 }

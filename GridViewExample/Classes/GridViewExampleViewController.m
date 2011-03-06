@@ -40,7 +40,7 @@
 		cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.5f green:0.5f blue:0.8f alpha:1.f];
 	}
 	
-	NSUInteger i = indexPath.section + aGridView.columnsCount*indexPath.row;
+	NSUInteger i = [aGridView indexForIndexPath:indexPath];
 	NSString* itemName = [items objectAtIndex:i];
 	cell.textLabel.text = itemName;
 	cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-64x64.png",itemName]];
@@ -48,11 +48,14 @@
 	return cell;
 }
 -(void)gridView:(OHGridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath {
-	NSUInteger idx = indexPath.section + aGridView.columnsCount*indexPath.row;
+	NSUInteger idx = [aGridView indexForIndexPath:indexPath];
 	NSString* msg = [items objectAtIndex:idx];
-	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Tap" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Tap" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
 	[alert release];
+}
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	[(OHGridView*)self.view deselectSelectedCellsAnimated:YES];
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {

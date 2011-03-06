@@ -90,10 +90,14 @@
 }
 -(OHGridViewCell*)dequeueReusableCell;
 -(void)reloadData;
+-(void)deselectSelectedCellsAnimated:(BOOL)animated; //!< Identical to set indexPathForSelectedRow to nil
+-(void)setIndexPathForSelectedCell:(NSIndexPath *)indexPath animated:(BOOL)animated;
+@property(nonatomic,retain) NSIndexPath* indexPathForSelectedCell;
+-(NSInteger)indexForIndexPath:(NSIndexPath*)indexPath; //!< Commodity method to return indexPath.section+columnsCount*indexPath.row (or -1 if nil)
+
 @property(nonatomic,assign) id<OHGridViewDelegate> delegate;
 @property(nonatomic,assign) id<OHGridViewDataSource> dataSource;
 @property(nonatomic,assign) NSUInteger columnsCount;
 @property(nonatomic,assign) CGFloat rowHeight;
 @property(nonatomic,assign) CGFloat marginWidth;
-@property(nonatomic,retain) NSIndexPath* indexPathForSelectedCell;
 @end
