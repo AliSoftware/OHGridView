@@ -71,6 +71,12 @@
 	textLabel.frame = r;
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	OHGridView* gridView = (OHGridView*)self.superview;
+	if ([gridView.delegate respondsToSelector:@selector(gridView:willSelectCellAtIndexPath:)])
+		[gridView.delegate gridView:gridView willSelectCellAtIndexPath:self.indexPath];
+}
+
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	OHGridView* gridView = (OHGridView*)self.superview;
 	if ([gridView.delegate respondsToSelector:@selector(gridView:didSelectCellAtIndexPath:)])
