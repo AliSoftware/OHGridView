@@ -36,12 +36,18 @@
 /////////////////////////////////////////////////////////////////////////////
 
 @interface OHGridViewCell : UIView {
+@private
 	NSIndexPath* indexPath;
 	UIImageView* imageView;
 	UILabel* textLabel;
+	UIView* backgroundView;
+	UIView* selectedBackgroundView;
 }
++(OHGridViewCell*)cell; //!< New cell
 @property(nonatomic,retain) UIImageView* imageView;
 @property(nonatomic,retain) UILabel* textLabel;
+@property(nonatomic,retain) UIView* backgroundView;
+@property(nonatomic,retain) UIView* selectedBackgroundView;
 @end
 
 

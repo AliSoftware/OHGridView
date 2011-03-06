@@ -27,8 +27,11 @@
 -(OHGridViewCell*)gridView:(OHGridView *)aGridView cellAtIndexPath:(NSIndexPath *)indexPath {
 	OHGridViewCell* cell = [aGridView dequeueReusableCell];
 	if (!cell) {
-		cell = [[[OHGridViewCell alloc] initWithFrame:CGRectZero] autorelease];
+		cell = [OHGridViewCell cell];
 		cell.backgroundColor = [UIColor grayColor];
+		
+		cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+		cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.5f green:0.5f blue:0.8f alpha:1.f];
 	}
 	
 	NSUInteger i = indexPath.section + aGridView.columnsCount*indexPath.row;

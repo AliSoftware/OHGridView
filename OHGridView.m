@@ -19,6 +19,7 @@
 @implementation OHGridViewCell
 @synthesize indexPath;
 @synthesize imageView, textLabel;
+@synthesize backgroundView, selectedBackgroundView;
 
 /////////////////////////////////////////////////////////////////////////////
 // MARK: Init/Dealloc
@@ -49,12 +50,19 @@
 	return self;
 }
 
++(OHGridViewCell*)cell {
+	return [[[self alloc] initWithFrame:CGRectZero] autorelease];
+}
+
 -(void)dealloc {
 	[indexPath release];
 	[imageView release];
 	[textLabel release];
+	[backgroundView release];
+	[selectedBackgroundView release];
 	[super dealloc];
 }
+
 
 /////////////////////////////////////////////////////////////////////////////
 // MARK: Tiling & Touch Mgmt
@@ -69,21 +77,64 @@
 	r.size.height = kLabelHeight;
 	r.origin.y = CGRectGetMaxY(imageView.frame);
 	textLabel.frame = r;
+	
+	backgroundView.frame = self.bounds;
+	selectedBackgroundView.frame = self.bounds;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (selectedBackgroundView) {
+		[backgroundView removeFromSuperview];
+		[self insertSubview:selectedBackgroundView atIndex:0];
+	}
+	
 	OHGridView* gridView = (OHGridView*)self.superview;
 	if ([gridView.delegate respondsToSelector:@selector(gridView:willSelectCellAtIndexPath:)])
 		[gridView.delegate gridView:gridView willSelectCellAtIndexPath:self.indexPath];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (selectedBackgroundView) {
+		[selectedBackgroundView removeFromSuperview];
+		[self insertSubview:backgroundView atIndex:0];
+	}
+	
 	OHGridView* gridView = (OHGridView*)self.superview;
 	if ([gridView.delegate respondsToSelector:@selector(gridView:didSelectCellAtIndexPath:)])
 		[gridView.delegate gridView:gridView didSelectCellAtIndexPath:self.indexPath];
 }
 
+-(void)setBackgroundView:(UIView*)view {
+	if (view != backgroundView) {
+		if ([backgroundView superview]==self) {
+			[backgroundView removeFromSuperview];
+			[self insertSubview:view atIndex:0];
+		}
+		[backgroundView release];
+		backgroundView = [view retain];
+		backgroundView.frame = self.bounds;
+	}
+}
+
+-(void)setSelectedBackgroundView:(UIView*)view {
+	if (view != selectedBackgroundView) {
+		if ([selectedBackgroundView superview]==self) {
+			[selectedBackgroundView removeFromSuperview];
+			[self insertSubview:view atIndex:0];
+		}
+		[selectedBackgroundView release];
+		selectedBackgroundView = [view retain];
+		selectedBackgroundView.frame = self.bounds;
+	}
+}
+
 @end
+
+
+
+
+
+
 
 
 
