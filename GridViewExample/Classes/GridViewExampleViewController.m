@@ -28,8 +28,14 @@
 	OHGridViewCell* cell = [aGridView dequeueReusableCell];
 	if (!cell) {
 		cell = [OHGridViewCell cell];
-		cell.backgroundColor = [UIColor grayColor];
 		
+		// First simple way to set a backgrounf
+		//cell.backgroundColor = [UIColor grayColor]; // One way
+		
+		// Another way, using custom view (so you may also user an UIImageView or whatever you need
+		cell.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+		cell.backgroundView.backgroundColor = [UIColor colorWithRed:0.5f green:0.8f blue:0.5f alpha:1.f];
+
 		cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
 		cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.5f green:0.5f blue:0.8f alpha:1.f];
 	}

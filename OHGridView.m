@@ -14,11 +14,13 @@
 
 @interface OHGridViewCell()
 @property(nonatomic,retain) NSIndexPath* indexPath;
+@property(nonatomic,assign) BOOL selected;
 @end
 
 @implementation OHGridViewCell
 @synthesize indexPath;
 @synthesize imageView, textLabel;
+@synthesize selected;
 @synthesize backgroundView, selectedBackgroundView;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -82,24 +84,28 @@
 	selectedBackgroundView.frame = self.bounds;
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	if (selectedBackgroundView) {
+-(void)setSelected:(BOOL)sel {
+	if (sel && selectedBackgroundView) {
 		[backgroundView removeFromSuperview];
 		[self insertSubview:selectedBackgroundView atIndex:0];
+	} else {
+		[selectedBackgroundView removeFromSuperview];
+		[self insertSubview:backgroundView atIndex:0];
 	}
-	
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	OHGridView* gridView = (OHGridView*)self.superview;
+	gridView.indexPathForSelectedCell = self.indexPath;
+
 	if ([gridView.delegate respondsToSelector:@selector(gridView:willSelectCellAtIndexPath:)])
 		[gridView.delegate gridView:gridView willSelectCellAtIndexPath:self.indexPath];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	if (selectedBackgroundView) {
-		[selectedBackgroundView removeFromSuperview];
-		[self insertSubview:backgroundView atIndex:0];
-	}
-	
 	OHGridView* gridView = (OHGridView*)self.superview;
+	gridView.indexPathForSelectedCell = self.indexPath;
+	
 	if ([gridView.delegate respondsToSelector:@selector(gridView:didSelectCellAtIndexPath:)])
 		[gridView.delegate gridView:gridView didSelectCellAtIndexPath:self.indexPath];
 }
@@ -108,11 +114,17 @@
 	if (view != backgroundView) {
 		if ([backgroundView superview]==self) {
 			[backgroundView removeFromSuperview];
-			[self insertSubview:view atIndex:0];
 		}
 		[backgroundView release];
 		backgroundView = [view retain];
+		
 		backgroundView.frame = self.bounds;
+		backgroundView.userInteractionEnabled = NO;
+		
+		if ([selectedBackgroundView superview]!=self) {
+			// If we don't have selectedBackgroundView or we have one but not currently displayed (= cell not selected)
+			[self insertSubview:view atIndex:0];
+		}
 	}
 }
 
@@ -120,11 +132,17 @@
 	if (view != selectedBackgroundView) {
 		if ([selectedBackgroundView superview]==self) {
 			[selectedBackgroundView removeFromSuperview];
-			[self insertSubview:view atIndex:0];
 		}
 		[selectedBackgroundView release];
 		selectedBackgroundView = [view retain];
+		
 		selectedBackgroundView.frame = self.bounds;
+		selectedBackgroundView.userInteractionEnabled = NO;
+		
+		if (backgroundView && [backgroundView superview]!=self) {
+			// If we have a backgroundView but it is not currently displayed (= cell selected)
+			[self insertSubview:view atIndex:0];
+		}
 	}
 }
 
@@ -144,10 +162,16 @@
 // MARK: -
 // MARK: OHGridView
 /////////////////////////////////////////////////////////////////////////////
+@interface OHGridView(/* Private */)
+-(void)configure;
+-(OHGridViewCell*)visibleCellForIndexPath:(NSIndexPath*)indexPath;
+@end
+
 
 @implementation OHGridView
 @synthesize delegate, dataSource;
 @synthesize columnsCount, rowHeight, marginWidth;
+@synthesize indexPathForSelectedCell;
 
 /////////////////////////////////////////////////////////////////////////////
 // MARK: Init/Dealloc
@@ -207,8 +231,11 @@
 
 -(void)setColumnsCount:(NSUInteger)val {
 	[self willChangeValueForKey:@"columnsCount"];
+	NSInteger selectedIdx = (indexPathForSelectedCell.section + indexPathForSelectedCell.row*columnsCount);
 	columnsCount = val;
+	indexPathForSelectedCell = [NSIndexPath indexPathForRow:(selectedIdx/val) inSection:(selectedIdx%val)];
 	[self didChangeValueForKey:@"columnsCount"];
+	
 	// as previous index paths for some columns may not be accessible anymore, we need to recreate it all
 	[self reloadData]; // this will relayout and recompute the contentSize too
 }
@@ -220,15 +247,40 @@
 	[self didChangeValueForKey:@"rowHeight"];
 }
 
+-(void)setMarginWidth:(CGFloat)val {
+	[self willChangeValueForKey:@"marginWidth"];
+	marginWidth = val;
+	[self setNeedsLayout]; // no need to reload all data, only relayout.
+	[self didChangeValueForKey:@"marginWidth"];	
+}
+
+-(void)setIndexPathForSelectedCell:(NSIndexPath *)indexPath {
+	if (indexPath != indexPathForSelectedCell) {
+		[self willChangeValueForKey:@"indexPathForSelectedCell"];
+		[self visibleCellForIndexPath:indexPathForSelectedCell].selected = NO;
+		[indexPathForSelectedCell release];
+		indexPathForSelectedCell = [indexPath retain];
+		[self visibleCellForIndexPath:indexPathForSelectedCell].selected = YES;
+		[self didChangeValueForKey:@"indexPathForSelectedCell"];
+	}
+}
+
 /////////////////////////////////////////////////////////////////////////////
 
 -(OHGridViewCell*)dequeueReusableCell {
-	id obj = [recyclePool anyObject];
-	if (obj) {
-		[[obj retain] autorelease];
-		[recyclePool removeObject:obj];
+	OHGridViewCell* cell = [recyclePool anyObject];
+	if (cell) {
+		[[cell retain] autorelease];
+		[recyclePool removeObject:cell];
 	}
-	return obj;
+	if ([cell.selectedBackgroundView superview]==cell) {
+		[cell.selectedBackgroundView removeFromSuperview];
+		[cell insertSubview:cell.backgroundView atIndex:0];
+	}
+	cell.backgroundView.frame = cell.bounds;
+	cell.selectedBackgroundView.frame = cell.bounds;
+	cell.selected = NO;
+	return cell;
 }
 
 -(OHGridViewCell*)visibleCellForIndexPath:(NSIndexPath*)indexPath {
@@ -268,6 +320,7 @@
 			if (!cell) {
 				cell = [self.dataSource gridView:self cellAtIndexPath:path];
 				cell.indexPath = path;
+				cell.selected = (path == self.indexPathForSelectedCell);
 				[visibleCells addObject:cell];
 				[self addSubview:cell];
 			}

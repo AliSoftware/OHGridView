@@ -40,6 +40,7 @@
 	NSIndexPath* indexPath;
 	UIImageView* imageView;
 	UILabel* textLabel;
+	BOOL selected;
 	UIView* backgroundView;
 	UIView* selectedBackgroundView;
 }
@@ -85,6 +86,7 @@
 
 	NSMutableSet* visibleCells;
 	NSMutableSet* recyclePool;
+	NSIndexPath* indexPathForSelectedCell;
 }
 -(OHGridViewCell*)dequeueReusableCell;
 -(void)reloadData;
@@ -93,4 +95,5 @@
 @property(nonatomic,assign) NSUInteger columnsCount;
 @property(nonatomic,assign) CGFloat rowHeight;
 @property(nonatomic,assign) CGFloat marginWidth;
+@property(nonatomic,retain) NSIndexPath* indexPathForSelectedCell;
 @end
