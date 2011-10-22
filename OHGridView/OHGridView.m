@@ -115,16 +115,16 @@
 	OHGridView* gridView = (OHGridView*)self.superview;
 	gridView.indexPathForSelectedCell = self.indexPath;
 
-	if ([gridView.delegate respondsToSelector:@selector(gridView:willSelectCellAtIndexPath:)])
-		[gridView.delegate gridView:gridView willSelectCellAtIndexPath:self.indexPath];
+	if ([gridView.gridViewDelegate respondsToSelector:@selector(gridView:willSelectCellAtIndexPath:)])
+		[gridView.gridViewDelegate gridView:gridView willSelectCellAtIndexPath:self.indexPath];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	OHGridView* gridView = (OHGridView*)self.superview;
 	gridView.indexPathForSelectedCell = self.indexPath;
 	
-	if ([gridView.delegate respondsToSelector:@selector(gridView:didSelectCellAtIndexPath:)])
-		[gridView.delegate gridView:gridView didSelectCellAtIndexPath:self.indexPath];
+	if ([gridView.gridViewDelegate respondsToSelector:@selector(gridView:didSelectCellAtIndexPath:)])
+		[gridView.gridViewDelegate gridView:gridView didSelectCellAtIndexPath:self.indexPath];
 }
 
 -(void)setBackgroundView:(UIView*)view {
@@ -182,7 +182,7 @@
 
 
 @implementation OHGridView
-@synthesize delegate, dataSource;
+@synthesize gridViewDelegate, gridViewDataSource;
 @synthesize columnsCount, rowHeight, marginWidth;
 @synthesize indexPathForSelectedCell;
 
@@ -229,7 +229,7 @@
 // MARK: Loading & Tiling cells
 
 -(void)reloadData {
-	itemsCount = [self.dataSource numberOfItemsInGridView:self];
+	itemsCount = [self.gridViewDataSource numberOfItemsInGridView:self];
 	NSUInteger nbRows = (itemsCount>0) ? ((itemsCount-1) / columnsCount)+1 : 0;
 	self.contentSize = CGSizeMake(self.bounds.size.width, self.rowHeight*nbRows);
 	// remove all cells
@@ -340,15 +340,15 @@
 			NSIndexPath* path = [NSIndexPath indexPathForRow:row inSection:col];
 			OHGridViewCell* cell = [self visibleCellForIndexPath:path];
 			if (!cell) {
-				cell = [self.dataSource gridView:self cellAtIndexPath:path];
+				cell = [self.gridViewDataSource gridView:self cellAtIndexPath:path];
 				cell.indexPath = path;
 				cell.selected = (path == self.indexPathForSelectedCell);
 				[visibleCells addObject:cell];
 				[self addSubview:cell];
 			}
 			cell.frame = CGRectInset( CGRectMake(col*w,row*rowHeight,w,rowHeight) , marginWidth,marginWidth);
-			if ([self.delegate respondsToSelector:@selector(gridView:willDisplayCell:forIndexPath:)])
-				[self.delegate gridView:self willDisplayCell:cell forIndexPath:path];
+			if ([self.gridViewDelegate respondsToSelector:@selector(gridView:willDisplayCell:forIndexPath:)])
+				[self.gridViewDelegate gridView:self willDisplayCell:cell forIndexPath:path];
 		}
 	}
 }

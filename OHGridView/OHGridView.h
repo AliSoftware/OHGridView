@@ -76,12 +76,6 @@
 /////////////////////////////////////////////////////////////////////////////
 
 @interface OHGridView : UIScrollView {
-	id<OHGridViewDelegate> delegate;
-	id<OHGridViewDataSource> dataSource;
-	
-	NSUInteger columnsCount;
-	CGFloat rowHeight;
-	CGFloat marginWidth;
 	NSUInteger itemsCount;
 
 	NSMutableSet* visibleCells;
@@ -95,8 +89,8 @@
 @property(nonatomic,retain) NSIndexPath* indexPathForSelectedCell;
 -(NSInteger)indexForIndexPath:(NSIndexPath*)indexPath; //!< Commodity method to return indexPath.section+columnsCount*indexPath.row (or -1 if nil)
 
-@property(nonatomic,assign) id<OHGridViewDelegate> delegate;
-@property(nonatomic,assign) id<OHGridViewDataSource> dataSource;
+@property(nonatomic,assign) IBOutlet id<OHGridViewDelegate> gridViewDelegate;
+@property(nonatomic,assign) IBOutlet id<OHGridViewDataSource> gridViewDataSource;
 @property(nonatomic,assign) NSUInteger columnsCount;
 @property(nonatomic,assign) CGFloat rowHeight;
 @property(nonatomic,assign) CGFloat marginWidth;
