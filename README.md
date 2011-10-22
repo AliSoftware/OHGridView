@@ -4,7 +4,7 @@ This framework allows you to display a grid of views.
 
 Its API is very similar to the API of UITableView : it can reuses/recycle cells to avoid too much allocations and it uses tiling to avoid having a too big memory footprint.
 
-You can configure its properties like rowHeight, columnCount, É
+You can configure its properties like rowHeight, columnCount, ...
 
 # How to integrate in your project
 

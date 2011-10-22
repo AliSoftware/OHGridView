@@ -24,7 +24,7 @@
 		09E8E6FB1453175100C63E20 /* OHGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 09E8E6F91453175100C63E20 /* OHGridView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		09E8E6FC1453175100C63E20 /* OHGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E6FA1453175100C63E20 /* OHGridView.m */; };
 		09E8E6FF1453176400C63E20 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 09E8E6FD1453176400C63E20 /* LICENSE */; };
-		09E8E7001453176400C63E20 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 09E8E6FE1453176400C63E20 /* README */; };
+		09E8E7001453176400C63E20 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 09E8E6FE1453176400C63E20 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +35,7 @@
 		09E8E6F91453175100C63E20 /* OHGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHGridView.h; sourceTree = "<group>"; };
 		09E8E6FA1453175100C63E20 /* OHGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHGridView.m; sourceTree = "<group>"; };
 		09E8E6FD1453176400C63E20 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		09E8E6FE1453176400C63E20 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		09E8E6FE1453176400C63E20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +52,7 @@
 		09E8E6B514530B5300C63E20 = {
 			isa = PBXGroup;
 			children = (
+				09E8E6FE1453176400C63E20 /* README.md */,
 				09E8E6C514530B5400C63E20 /* OHGridView */,
 				09E8E6C214530B5400C63E20 /* Frameworks */,
 				09E8E6C114530B5400C63E20 /* Products */,
@@ -89,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				09E8E6FD1453176400C63E20 /* LICENSE */,
-				09E8E6FE1453176400C63E20 /* README */,
 				09E8E6DD14530BA300C63E20 /* OHGridView-Info.plist */,
 			);
 			name = "Supporting Files";
@@ -160,7 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09E8E6FF1453176400C63E20 /* LICENSE in Resources */,
-				09E8E7001453176400C63E20 /* README in Resources */,
+				09E8E7001453176400C63E20 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
