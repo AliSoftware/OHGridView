@@ -10,7 +10,7 @@ You can configure its properties like rowHeight, columnCount, É
 
 You have two options to integrate OHGridView in your projects:
 
-## Prebuild the framework then integrate in your project
+### Prebuild the framework then integrate in your project
 
 This is the recommended solution, as you will probably not modify the OHGridView source code. So you can only build the framework once for all and then use it as any other framework.
 
@@ -21,7 +21,7 @@ You can then close the OHGridView.xcodeproj project.
 Next, simply add the build framework to your project, as any other framework (Apple frameworks or any other).
 You can then `#import <OHGridView/OHGridView.h>` in your own code to import its header.
 
-## Add a build dependency between your project and the OHGridView project
+### Add a build dependency between your project and the OHGridView project
 
 This solution is only useful if you intend to modify the OHGridView source often. You can add the OHGridView.xcodeproj projet as e dependency project of your own project, and add the "OHGridView Universal Framework" target as a dependency project of your own project.
 
