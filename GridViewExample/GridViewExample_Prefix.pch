@@ -6,3 +6,19 @@
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
 #endif
+
+#ifndef __has_feature
+  #define ARC_ENABLED 0
+#else
+  #define ARC_ENABLED __has_feature(objc_arc)
+#endif
+
+#if ARC_ENABLED
+  #define noarc_release(x)
+  #define noarc_autorelease(x) x
+  #define arc_strong strong
+#else
+  #define noarc_release(x) [x release]
+  #define noarc_autorelease(x) [x autorelease]
+  #define arc_strong retain
+#endif

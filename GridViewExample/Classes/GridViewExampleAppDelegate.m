@@ -29,12 +29,12 @@
     return YES;
 }
 
-
+#if ! ARC_ENABLED
 - (void)dealloc {
     [viewController release];
     [window release];
     [super dealloc];
 }
-
+#endif
 
 @end

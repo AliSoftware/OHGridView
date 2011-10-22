@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 int main(int argc, char *argv[]) {
-#if 1
+#if ARC_ENABLED
     @autoreleasepool {
         return UIApplicationMain(argc, argv, nil, nil);
     }

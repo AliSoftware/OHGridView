@@ -22,14 +22,14 @@
 		098D5676123022DA0055E596 /* weather-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = 098D5669123022DA0055E596 /* weather-64x64.png */; };
 		09BAC51712E255DF00C3B95B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 09BAC51612E255DF00C3B95B /* Icon.png */; };
 		09E8E6F8145315DD00C63E20 /* OHGridView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09E8E6F7145315DD00C63E20 /* OHGridView.framework */; };
-		1D3623260D0F684500981E51 /* GridViewExampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* GridViewExampleAppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1D3623260D0F684500981E51 /* GridViewExampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* GridViewExampleAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		2899E5220DE3E06400AC0155 /* GridViewExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* GridViewExampleViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		28D7ACF80DDB3853001CB0EB /* GridViewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* GridViewExampleViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		28D7ACF80DDB3853001CB0EB /* GridViewExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* GridViewExampleViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

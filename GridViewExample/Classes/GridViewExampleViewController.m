@@ -33,10 +33,10 @@
 		//cell.backgroundColor = [UIColor grayColor]; // One way
 		
 		// Another way, using custom view (so you may also user an UIImageView or whatever you need
-		cell.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+		cell.backgroundView = noarc_autorelease([[UIView alloc] initWithFrame:CGRectZero]);
 		cell.backgroundView.backgroundColor = [UIColor colorWithRed:0.5f green:0.8f blue:0.5f alpha:1.f];
 
-		cell.selectedBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+		cell.selectedBackgroundView = noarc_autorelease([[UIView alloc] initWithFrame:CGRectZero]);
 		cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.5f green:0.5f blue:0.8f alpha:1.f];
 	}
 	
@@ -50,9 +50,12 @@
 -(void)gridView:(OHGridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath {
 	NSUInteger idx = [aGridView indexForIndexPath:indexPath];
 	NSString* msg = [items objectAtIndex:idx];
-	UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Tap" message:msg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	UIAlertView* alert = noarc_autorelease([[UIAlertView alloc] initWithTitle:@"Tap"
+                                                                      message:msg
+                                                                     delegate:self
+                                                            cancelButtonTitle:@"OK"
+                                                            otherButtonTitles:nil]);
 	[alert show];
-	[alert release];
 }
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	[(OHGridView*)self.view deselectSelectedCellsAnimated:YES];
@@ -66,7 +69,7 @@
 }
 
 -(void)viewDidUnload {
-	[items release];
+	noarc_release(items);
 	items = nil;
 }
 

@@ -1,4 +1,5 @@
 # xcode noise
+xcuserdata/
 build/
 *~.nib/
 *.pbxuser

@@ -15,8 +15,8 @@
     GridViewExampleViewController *viewController;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet GridViewExampleViewController *viewController;
+@property (nonatomic, arc_strong) IBOutlet UIWindow *window;
+@property (nonatomic, arc_strong) IBOutlet GridViewExampleViewController *viewController;
 
 @end
 
