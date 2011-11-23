@@ -29,11 +29,12 @@ This solution is only useful if you intend to modify the OHGridView source often
 
 Once you have added `OHGridView.framework` to your project, you simply `#import <OHGridView/OHGridView.h>` in your source and then implement the methods of the `OHGridViewDataSource` protocol, like you would do for a UITableView:
 
-`-(NSUInteger)numberOfItemsInGridView:(OHGridView *)aGridView;`
-`-(OHGridViewCell*)gridView:(OHGridView *)aGridView cellAtIndexPath:(NSIndexPath *)indexPath;`
+    -(NSUInteger)numberOfItemsInGridView:(OHGridView *)aGridView;
+    -(OHGridViewCell*)gridView:(OHGridView *)aGridView cellAtIndexPath:(NSIndexPath *)indexPath;
 
 You can also implement the GridViewDelegate protocol especially to handle when a cell is tapped:
-`-(void)gridView:(OHGridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath;`
+
+    -(void)gridView:(OHGridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath;
 
 
 See the "GridViewExample" project for a basic usage example (including changing the number of columns used when the iPhone orientation changes)
