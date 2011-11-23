@@ -307,7 +307,7 @@
 
 -(OHGridViewCell*)visibleCellForIndexPath:(NSIndexPath*)indexPath {
 	for(OHGridViewCell* cell in visibleCells) {
-		if (cell.indexPath == indexPath) {
+		if ([cell.indexPath isEqual:indexPath]) {
 			return cell;
 		}
 	}
