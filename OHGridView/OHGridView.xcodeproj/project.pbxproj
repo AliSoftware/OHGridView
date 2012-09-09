@@ -133,7 +133,7 @@
 		09E8E6B714530B5300C63E20 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = Capgemini;
 			};
 			buildConfigurationList = 09E8E6BA14530B5300C63E20 /* Build configuration list for PBXProject "OHGridView" */;
