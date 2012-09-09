@@ -119,6 +119,8 @@
 	
 	self.backgroundView.frame = self.bounds;
 	self.selectedBackgroundView.frame = self.bounds;
+    
+    [super layoutSubviews];
 }
 
 -(void)setSelected:(BOOL)sel
@@ -398,7 +400,7 @@
 }
 
 -(void)layoutSubviews
-{	
+{
 	// remove cells that are no longer visible
 	for(UIView* v in self.visibleCells)
     {
@@ -423,7 +425,8 @@
     {
 		for (NSUInteger col= 0; col < self.columnsCount; ++col)
         {
-			if (row*self.columnsCount+col >= self.itemsCount) return;
+            NSUInteger itemIndex = row * self.columnsCount + col;
+			if (itemIndex >= self.itemsCount) return;
 			NSIndexPath* path = [NSIndexPath indexPathForRow:row inSection:col];
 			OHGridViewCell* cell = [self visibleCellForIndexPath:path];
 			if (!cell)
@@ -432,7 +435,7 @@
 				cell.indexPath = path;
 				cell.selected = (path == self.indexPathForSelectedCell);
 				[self.visibleCells addObject:cell];
-				[self addSubview:cell];
+                [self insertSubview:cell atIndex:itemIndex];
 			}
 			cell.frame = CGRectInset( CGRectMake(col*w, row*self.rowHeight,w,self.rowHeight) , self.marginWidth, self.marginWidth);
 			if ([self.gridViewDelegate respondsToSelector:@selector(OHGridView:willDisplayCell:forIndexPath:)])
@@ -441,6 +444,8 @@
             }
 		}
 	}
+    
+    [super layoutSubviews];
 }
 
 @end
