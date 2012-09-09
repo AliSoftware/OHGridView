@@ -257,9 +257,9 @@
 
 @interface OHGridView(/* Private */)
 -(void)configure;
--(OHGridViewCell*)visibleCellForIndexPath:(NSIndexPath*)indexPath;
 @property(nonatomic, assign) NSUInteger itemsCount;
 @property(nonatomic, retain) NSMutableSet* visibleCells;
+@property(nonatomic, retain) NSMutableDictionary* visibleCellsMapping;
 @property(nonatomic, retain) NSMutableSet* recyclePool;
 @end
 
@@ -278,6 +278,7 @@
 // Private Properties Synthesis
 @synthesize itemsCount = _itemsCount;
 @synthesize visibleCells = _visibleCells;
+@synthesize visibleCellsMapping = _visibleCellsMapping;
 @synthesize recyclePool = _recyclePool;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -286,6 +287,7 @@
 -(void)configure
 {
 	_visibleCells = [[NSMutableSet alloc] init];
+    _visibleCellsMapping = [[NSMutableDictionary alloc] init];
 	_recyclePool = [[NSMutableSet alloc] init];
 	_columnsCount = 3;
 	_rowHeight = 200.f;
@@ -319,6 +321,7 @@
     [_indexPathForSelectedCell release];
     // Private properties
 	[_visibleCells release];
+    [_visibleCellsMapping release];
 	[_recyclePool release];
 	[super dealloc];
 }
@@ -338,12 +341,13 @@
 	NSUInteger nbRows = (self.itemsCount>0) ? ((self.itemsCount-1) / self.columnsCount)+1 : 0;
 	self.contentSize = CGSizeMake(self.bounds.size.width, self.rowHeight*nbRows);
 	// remove all cells
-	for(UIView* v in self.visibleCells)
+	for(OHGridViewCell* cell in self.visibleCells)
     {
-		[self.recyclePool addObject:v];
-		[v removeFromSuperview];
+		[self.recyclePool addObject:cell];
+		[cell removeFromSuperview];
 	}
 	[self.visibleCells removeAllObjects];
+    [self.visibleCellsMapping removeAllObjects];
 	// relayout and reload cells
 	[self setNeedsLayout];
 }
@@ -382,21 +386,21 @@
 
 -(void)setIndexPathForSelectedCell:(NSIndexPath *)indexPath
 {
-	[self setIndexPathForSelectedCell:indexPath animated:YES];
+	[self setIndexPathForSelectedCell:indexPath animated:NO];
 }
 
 -(void)setIndexPathForSelectedCell:(NSIndexPath *)indexPath animated:(BOOL)animated
 {
 	if (indexPath != _indexPathForSelectedCell)
     {
-		[[self visibleCellForIndexPath:_indexPathForSelectedCell] setSelected:NO animated:animated];
+		[[self.visibleCellsMapping objectForKey:_indexPathForSelectedCell] setSelected:NO animated:animated];
 #if ! __has_feature(objc_arc)
 		[_indexPathForSelectedCell release];
 		_indexPathForSelectedCell = [indexPath retain];
 #else
         _indexPathForSelectedCell = indexPath;
 #endif
-		[[self visibleCellForIndexPath:_indexPathForSelectedCell] setSelected:YES animated:animated];
+		[[self.visibleCellsMapping objectForKey:_indexPathForSelectedCell] setSelected:YES animated:animated];
 	}
 }
 
@@ -421,27 +425,16 @@
 	return cell;
 }
 
--(OHGridViewCell*)visibleCellForIndexPath:(NSIndexPath*)indexPath
-{
-	for(OHGridViewCell* cell in self.visibleCells)
-    {
-		if ([cell.indexPath isEqual:indexPath])
-        {
-			return cell;
-		}
-	}
-	return nil;
-}
-
 -(void)layoutSubviews
 {
 	// remove cells that are no longer visible
-	for(UIView* v in self.visibleCells)
+	for(OHGridViewCell* cell in self.visibleCells)
     {
-		if (!CGRectIntersectsRect(v.frame, self.bounds))
+		if (!CGRectIntersectsRect(cell.frame, self.bounds))
         {
-			[self.recyclePool addObject:v];
-			[v removeFromSuperview];
+			[self.recyclePool addObject:cell];
+            [self.visibleCellsMapping removeObjectForKey:cell.indexPath];
+			[cell removeFromSuperview];
 		}
 	}
 	[self.visibleCells minusSet:self.recyclePool];
@@ -462,7 +455,7 @@
             NSUInteger itemIndex = row * self.columnsCount + col;
 			if (itemIndex >= self.itemsCount) return;
 			NSIndexPath* path = [NSIndexPath indexPathForRow:row inSection:col];
-			OHGridViewCell* cell = [self visibleCellForIndexPath:path];
+			OHGridViewCell* cell = [self.visibleCellsMapping objectForKey:path];
 			if (!cell)
             {
 				cell = [self.gridViewDataSource OHGridView:self cellAtIndexPath:path];
@@ -470,6 +463,7 @@
 				cell.selected = (path == self.indexPathForSelectedCell);
                 [self insertSubview:cell atIndex:self.visibleCells.count];
 				[self.visibleCells addObject:cell];
+                [self.visibleCellsMapping setObject:cell forKey:path];
 			}
 			cell.frame = CGRectInset( CGRectMake(col*w, row*self.rowHeight,w,self.rowHeight) , self.marginWidth, self.marginWidth);
 			if ([self.gridViewDelegate respondsToSelector:@selector(OHGridView:willDisplayCell:forIndexPath:)])
