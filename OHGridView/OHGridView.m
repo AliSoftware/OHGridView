@@ -86,9 +86,14 @@
 
 +(OHGridViewCell*)cell
 {
-	return [[[self alloc] initWithFrame:CGRectZero] autorelease];
+	OHGridViewCell* newCell = [[self alloc] initWithFrame:CGRectZero];
+#if ! __has_feature(objc_arc)
+    [newCell autorelease]
+#endif
+    return newCell;
 }
 
+#if ! __has_feature(objc_arc)
 -(void)dealloc
 {
     // Public properties
@@ -100,6 +105,7 @@
 	[_indexPath release];
 	[super dealloc];
 }
+#endif
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -185,8 +191,12 @@
         {
 			[_backgroundView removeFromSuperview];
 		}
+#if ! __has_feature(objc_arc)
 		[_backgroundView release];
 		_backgroundView = [view retain];
+#else
+        _backgroundView = view;
+#endif
 		
 		_backgroundView.frame = self.bounds;
 		_backgroundView.userInteractionEnabled = NO;
@@ -204,8 +214,12 @@
         {
 			[_selectedBackgroundView removeFromSuperview];
 		}
+#if ! __has_feature(objc_arc)
 		[_selectedBackgroundView release];
 		_selectedBackgroundView = [view retain];
+#else
+        _selectedBackgroundView = view;
+#endif
 		
 		_selectedBackgroundView.frame = self.bounds;
 		_selectedBackgroundView.userInteractionEnabled = NO;
@@ -287,6 +301,7 @@
 	return self;
 }
 
+#if ! __has_feature(objc_arc)
 -(void)dealloc
 {
     // Public properties
@@ -296,6 +311,7 @@
 	[_recyclePool release];
 	[super dealloc];
 }
+#endif
 
 -(void)willMoveToWindow:(UIWindow *)newWindow
 {
@@ -363,8 +379,12 @@
 	if (indexPath != _indexPathForSelectedCell)
     {
 		[[self visibleCellForIndexPath:_indexPathForSelectedCell] setSelected:NO animated:animated];
+#if ! __has_feature(objc_arc)
 		[_indexPathForSelectedCell release];
 		_indexPathForSelectedCell = [indexPath retain];
+#else
+        _indexPathForSelectedCell = indexPath;
+#endif
 		[[self visibleCellForIndexPath:_indexPathForSelectedCell] setSelected:YES animated:animated];
 	}
 }
@@ -376,14 +396,17 @@
 	OHGridViewCell* cell = [self.recyclePool anyObject];
 	if (cell)
     {
+#if ! __has_feature(objc_arc)
 		[[cell retain] autorelease];
+#endif
 		[self.recyclePool removeObject:cell];
+        
+        cell.backgroundView.frame = cell.bounds;
+        cell.selectedBackgroundView.frame = cell.bounds;
+        cell.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        cell.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        cell.selected = NO;
 	}
-	cell.backgroundView.frame = cell.bounds;
-	cell.selectedBackgroundView.frame = cell.bounds;
-	cell.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-	cell.selectedBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-	cell.selected = NO;
 	return cell;
 }
 

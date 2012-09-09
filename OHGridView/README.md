@@ -27,6 +27,19 @@ You can also implement the GridViewDelegate protocol especially to handle when a
 
 See the "GridViewExample" project for a basic usage example (including changing the number of columns used when the iPhone orientation changes)
 
+# ARC Support
+
+**`OHGridView` is compatible with both ARC and non-ARC projects**.
+
+In fact, as `OHGridView` is provided as a separated project, it has its own build settings (that's the advantage of integrating it as a separate project in your workspace, compared to directly add the `OHGridView.h`/`OHGridView.m` files to your application project). As a consequence, the build settings of your own application, including the activation of ARC or not, won't affect `OHGridView` project's build settings and the `OHGridView` building operation.
+
+Moreover, as a matter of fact, the `OHGridView` project itself can be **both compiled with ARC turned on or off**, thanks to `#if` precompiler directives.
+
+* This means that even if it is not the recommanded way to include `OHGridView`in your application, including the files directly in your own xcodeproj will still work, whatever the ARC setting is for your project.
+* This also means that even if the `OHGridView` project is currently configured to be compiled with ARC turned on, you may turn this setting off if you prefer (for whatever reason) have the `OHGridView.m` file being compiled without ARC.
+
+In short, whether your project uses ARC or not won't matter, you can use `OHGridView` in any case.
+
 # Feedback
 
 Don't hesitate to contact me if you use this class so we can cross-reference our projects, or if you have any feedback.
