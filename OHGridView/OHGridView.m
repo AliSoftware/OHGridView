@@ -138,34 +138,38 @@
 
 -(void)setSelected:(BOOL)sel
 {
-	[self setSelected:sel animated:YES];
+	[self setSelected:sel animated:NO];
 }
 
 -(void)setSelected:(BOOL)sel animated:(BOOL)animated
 {
-	NSTimeInterval duration = animated ? 0.5f : 0.f;
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 40000
-	[UIView beginAnimations:@"selected" context:NULL];
-	[UIView setAnimationDuration:duration];
-#else
-	[UIView transitionWithView:self duration:duration options:UIViewAnimationOptionShowHideTransitionViews animations:^(void)
-	 {
-#endif
-		 if (sel && self.selectedBackgroundView)
-         {
-			 self.backgroundView.alpha = 0.f;
-			 self.selectedBackgroundView.alpha = 1.f;
-		 }
-         else
-         {
-			 self.selectedBackgroundView.alpha = 0.f;
-			 self.backgroundView.alpha = 1.f;
-		 }
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 40000
-	 } completion:nil];
-#else
-	[UIView commitAnimations];
-#endif
+    dispatch_block_t changeSelection = ^(void)
+    {
+        if (sel && self.selectedBackgroundView)
+        {
+            self.backgroundView.alpha = 0.f;
+            self.selectedBackgroundView.alpha = 1.f;
+        }
+        else
+        {
+            self.selectedBackgroundView.alpha = 0.f;
+            self.backgroundView.alpha = 1.f;
+        }
+    };
+    
+    if (animated)
+    {
+        static const NSTimeInterval duration = 0.5f;
+        [UIView transitionWithView:self
+                          duration:duration
+                           options:UIViewAnimationOptionShowHideTransitionViews
+                        animations:changeSelection
+                        completion:nil];
+    }
+    else
+    {
+        changeSelection();
+    }
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
