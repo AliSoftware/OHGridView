@@ -28,7 +28,7 @@
 			 @"mail",@"map",@"notes",@"photo",@"tools",@"wallpaper",@"weather",
 			 nil];
 
-	((OHGridView*)self.view).rowHeight = 100;
+	((OHGridView*)self.view).rowHeight = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 100 : 200;
 	((OHGridView*)self.view).columnsCount = 2;
 }
 
@@ -62,7 +62,7 @@
     {
 		cell = [OHGridViewCell cell];
 		
-		// First simple way to set a backgrounf
+		// First simple way to set a background
 		//cell.backgroundColor = [UIColor grayColor]; // One way
 		
 		// Another way, using custom view (so you may also user an UIImageView or whatever you need
@@ -71,6 +71,9 @@
 
 		cell.selectedBackgroundView = noarc_autorelease([[UIView alloc] initWithFrame:CGRectZero]);
 		cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.5f green:0.5f blue:0.8f alpha:1.f];
+        
+        // Customize textLabel font size
+        cell.textLabel.font = [UIFont systemFontOfSize:(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 12 : 36];
 	}
 	
 	NSUInteger i = [aGridView indexForIndexPath:indexPath];

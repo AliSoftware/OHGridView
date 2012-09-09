@@ -31,7 +31,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     OHGridView* grid = (OHGridView*)self.view;
-    grid.columnsCount = 5;
+    grid.columnsCount = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? 5 : 8;
     grid.rowHeight = 80;
 }
 
