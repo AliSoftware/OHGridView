@@ -47,15 +47,15 @@
 @class OHGridView;
 
 @protocol OHGridViewDataSource
--(NSUInteger)numberOfItemsInGridView:(OHGridView*)aGridView;
--(OHGridViewCell*)gridView:(OHGridView*)aGridView cellAtIndexPath:(NSIndexPath*)indexPath;
+-(NSUInteger)numberOfItemsInOHGridView:(OHGridView*)aGridView;
+-(OHGridViewCell*)OHGridView:(OHGridView*)aGridView cellAtIndexPath:(NSIndexPath*)indexPath;
 @end
 
 @protocol OHGridViewDelegate <NSObject>
 @optional
--(void)gridView:(OHGridView*)aGridView willDisplayCell:(OHGridViewCell*)aCell forIndexPath:(NSIndexPath*)indexPath;
--(void)gridView:(OHGridView*)aGridView willSelectCellAtIndexPath:(NSIndexPath*)indexPath;
--(void)gridView:(OHGridView*)aGridView didSelectCellAtIndexPath:(NSIndexPath*)indexPath;
+-(void)OHGridView:(OHGridView*)aGridView willDisplayCell:(OHGridViewCell*)aCell forIndexPath:(NSIndexPath*)indexPath;
+-(void)OHGridView:(OHGridView*)aGridView willSelectCellAtIndexPath:(NSIndexPath*)indexPath;
+-(void)OHGridView:(OHGridView*)aGridView didSelectCellAtIndexPath:(NSIndexPath*)indexPath;
 @end
 
 

@@ -103,7 +103,7 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// MARK: Tiling & Touch Mgmt
+#pragma mark - Tiling & Touch Mgmt
 
 -(void)layoutSubviews
 {
@@ -158,19 +158,20 @@
 	OHGridView* gridView = (OHGridView*)self.superview;
 	gridView.indexPathForSelectedCell = self.indexPath;
 
-	if ([gridView.gridViewDelegate respondsToSelector:@selector(gridView:willSelectCellAtIndexPath:)])
+	if ([gridView.gridViewDelegate respondsToSelector:@selector(OHGridView:willSelectCellAtIndexPath:)])
     {
-		[gridView.gridViewDelegate gridView:gridView willSelectCellAtIndexPath:self.indexPath];
+		[gridView.gridViewDelegate OHGridView:gridView willSelectCellAtIndexPath:self.indexPath];
     }
 }
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
 	OHGridView* gridView = (OHGridView*)self.superview;
 	gridView.indexPathForSelectedCell = self.indexPath;
 	
-	if ([gridView.gridViewDelegate respondsToSelector:@selector(gridView:didSelectCellAtIndexPath:)])
+	if ([gridView.gridViewDelegate respondsToSelector:@selector(OHGridView:didSelectCellAtIndexPath:)])
     {
-		[gridView.gridViewDelegate gridView:gridView didSelectCellAtIndexPath:self.indexPath];
+		[gridView.gridViewDelegate OHGridView:gridView didSelectCellAtIndexPath:self.indexPath];
     }
 }
 
@@ -178,7 +179,7 @@
 {
 	if (view != _backgroundView)
     {
-		if ([_backgroundView superview]==self)
+		if ([_backgroundView superview] == self)
         {
 			[_backgroundView removeFromSuperview];
 		}
@@ -197,7 +198,7 @@
 {
 	if (view != _selectedBackgroundView)
     {
-		if ([_selectedBackgroundView superview]==self)
+		if ([_selectedBackgroundView superview] == self)
         {
 			[_selectedBackgroundView removeFromSuperview];
 		}
@@ -304,11 +305,12 @@
 
 -(void)reloadData
 {
-	self.itemsCount = [self.gridViewDataSource numberOfItemsInGridView:self];
+	self.itemsCount = [self.gridViewDataSource numberOfItemsInOHGridView:self];
 	NSUInteger nbRows = (self.itemsCount>0) ? ((self.itemsCount-1) / self.columnsCount)+1 : 0;
 	self.contentSize = CGSizeMake(self.bounds.size.width, self.rowHeight*nbRows);
 	// remove all cells
-	for(UIView* v in self.visibleCells) {
+	for(UIView* v in self.visibleCells)
+    {
 		[self.recyclePool addObject:v];
 		[v removeFromSuperview];
 	}
@@ -408,7 +410,7 @@
 	}
 	[self.visibleCells minusSet:self.recyclePool];
 	
-	if (self.itemsCount==0) return;
+	if (self.itemsCount == 0) return;
 	
 	// tile missing cells
 	NSUInteger firstRow = floorf( CGRectGetMinY(self.bounds) / self.rowHeight );
@@ -426,16 +428,16 @@
 			OHGridViewCell* cell = [self visibleCellForIndexPath:path];
 			if (!cell)
             {
-				cell = [self.gridViewDataSource gridView:self cellAtIndexPath:path];
+				cell = [self.gridViewDataSource OHGridView:self cellAtIndexPath:path];
 				cell.indexPath = path;
 				cell.selected = (path == self.indexPathForSelectedCell);
 				[self.visibleCells addObject:cell];
 				[self addSubview:cell];
 			}
 			cell.frame = CGRectInset( CGRectMake(col*w, row*self.rowHeight,w,self.rowHeight) , self.marginWidth, self.marginWidth);
-			if ([self.gridViewDelegate respondsToSelector:@selector(gridView:willDisplayCell:forIndexPath:)])
+			if ([self.gridViewDelegate respondsToSelector:@selector(OHGridView:willDisplayCell:forIndexPath:)])
             {
-				[self.gridViewDelegate gridView:self willDisplayCell:cell forIndexPath:path];
+				[self.gridViewDelegate OHGridView:self willDisplayCell:cell forIndexPath:path];
             }
 		}
 	}

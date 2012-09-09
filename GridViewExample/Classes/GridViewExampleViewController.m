@@ -10,7 +10,8 @@
 
 @implementation GridViewExampleViewController
 
--(void)viewDidLoad {
+-(void)viewDidLoad
+{
 	// Images are courtesy of http://www.iconspedia.com/pack/iphone/
 	items = [[NSArray alloc] initWithObjects:
 			 @"browser",@"calc",@"chat-blank",@"clock",@"graph",@"ipod",
@@ -21,12 +22,16 @@
 	((OHGridView*)self.view).columnsCount = 2;
 }
 
--(NSUInteger)numberOfItemsInGridView:(OHGridView *)aGridView {
+-(NSUInteger)numberOfItemsInOHGridView:(OHGridView *)aGridView
+{
 	return [items count];
 }
--(OHGridViewCell*)gridView:(OHGridView *)aGridView cellAtIndexPath:(NSIndexPath *)indexPath {
+
+-(OHGridViewCell*)OHGridView:(OHGridView *)aGridView cellAtIndexPath:(NSIndexPath *)indexPath
+{
 	OHGridViewCell* cell = [aGridView dequeueReusableCell];
-	if (!cell) {
+	if (!cell)
+    {
 		cell = [OHGridViewCell cell];
 		
 		// First simple way to set a backgrounf
@@ -47,7 +52,9 @@
 	
 	return cell;
 }
--(void)gridView:(OHGridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath {
+
+-(void)OHGridView:(OHGridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath
+{
 	NSUInteger idx = [aGridView indexForIndexPath:indexPath];
 	NSString* msg = [items objectAtIndex:idx];
 	UIAlertView* alert = noarc_autorelease([[UIAlertView alloc] initWithTitle:@"Tap"
@@ -57,18 +64,23 @@
                                                             otherButtonTitles:nil]);
 	[alert show];
 }
--(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
 	[(OHGridView*)self.view deselectSelectedCellsAnimated:YES];
 }
 
--(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
 	return YES;
 }
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration {
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
 	((OHGridView*)self.view).columnsCount = UIInterfaceOrientationIsPortrait(interfaceOrientation) ? 2 : 4;
 }
 
--(void)viewDidUnload {
+-(void)viewDidUnload
+{
 	noarc_release(items);
 	items = nil;
 }
