@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <OHGridView/OHGridView.h>
+#import "OHGridView.h"
 
 @interface GridViewExampleViewController : UIViewController
     <UIAlertViewDelegate, OHGridViewDelegate, OHGridViewDataSource> {

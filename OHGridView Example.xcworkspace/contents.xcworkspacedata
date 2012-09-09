@@ -5,6 +5,6 @@
       location = "container:GridViewExample/GridViewExample.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:GridViewExample/../OHGridView/OHGridView.xcodeproj">
+      location = "group:OHGridView/OHGridView.xcodeproj">
    </FileRef>
 </Workspace>

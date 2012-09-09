@@ -1,11 +1,7 @@
-Without any further information, all the sources provided here are under the MIT License
-quoted below.
-
-Anyway, please contact me by email (olivier.halligon+ae@gmail.com) if you plan to use my work and the provided classes
-in your own software. Thanks.
-
 
 /***********************************************************************************
+ * The OHGridView library is under the MIT License quoted below:
+ ***********************************************************************************
  *
  * Copyright (c) 2010 Olivier Halligon
  * 
@@ -27,9 +23,4 @@ in your own software. Thanks.
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  * 
- ***********************************************************************************
- *
- * Any comment or suggestion welcome. Referencing this project in your AboutBox is appreciated.
- * Please tell me if you use this class so we can cross-reference our projects.
- *
  ***********************************************************************************/

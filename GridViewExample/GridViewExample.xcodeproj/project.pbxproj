@@ -21,7 +21,7 @@
 		098D5675123022DA0055E596 /* wallpaper-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = 098D5668123022DA0055E596 /* wallpaper-64x64.png */; };
 		098D5676123022DA0055E596 /* weather-64x64.png in Resources */ = {isa = PBXBuildFile; fileRef = 098D5669123022DA0055E596 /* weather-64x64.png */; };
 		09BAC51712E255DF00C3B95B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 09BAC51612E255DF00C3B95B /* Icon.png */; };
-		09E8E6F8145315DD00C63E20 /* OHGridView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09E8E6F7145315DD00C63E20 /* OHGridView.framework */; };
+		09F6EC8715FD01D700A493F3 /* libOHGridView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09F6EC8615FD01D700A493F3 /* libOHGridView.a */; };
 		1D3623260D0F684500981E51 /* GridViewExampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* GridViewExampleAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -47,7 +47,7 @@
 		098D5668123022DA0055E596 /* wallpaper-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallpaper-64x64.png"; sourceTree = "<group>"; };
 		098D5669123022DA0055E596 /* weather-64x64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-64x64.png"; sourceTree = "<group>"; };
 		09BAC51612E255DF00C3B95B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		09E8E6F7145315DD00C63E20 /* OHGridView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHGridView.framework; path = ../OHGridView/Products/OHGridView.framework; sourceTree = "<group>"; };
+		09F6EC8615FD01D700A493F3 /* libOHGridView.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOHGridView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* GridViewExampleAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewExampleAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* GridViewExampleAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewExampleAppDelegate.m; sourceTree = "<group>"; };
@@ -68,10 +68,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F6EC8715FD01D700A493F3 /* libOHGridView.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
-				09E8E6F8145315DD00C63E20 /* OHGridView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
+				09F6EC8615FD01D700A493F3 /* libOHGridView.a */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -153,7 +154,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				09E8E6F7145315DD00C63E20 /* OHGridView.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
@@ -251,38 +251,32 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../OHGridView/Products\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GridViewExample_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "GridViewExample-Info.plist";
+				LIBRARY_SEARCH_PATHS = "${TARGET_BUILD_DIR}/**";
 				PRODUCT_NAME = GridViewExample;
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/../OHGridView/**";
 			};
 			name = Debug;
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/../OHGridView/Products\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GridViewExample_Prefix.pch;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "GridViewExample-Info.plist";
+				LIBRARY_SEARCH_PATHS = "${TARGET_BUILD_DIR}/**";
 				PRODUCT_NAME = GridViewExample;
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/../OHGridView/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -290,6 +284,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -305,6 +300,7 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

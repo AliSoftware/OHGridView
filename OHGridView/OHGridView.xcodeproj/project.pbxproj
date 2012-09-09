@@ -6,43 +6,41 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		09E8E6EB145311CF00C63E20 /* Universal Framework */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 09E8E6EC145311D000C63E20 /* Build configuration list for PBXAggregateTarget "Universal Framework" */;
-			buildPhases = (
-				09E8E6EF145311D400C63E20 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "Universal Framework";
-			productName = "Universal Framework";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
-		09E8E6FB1453175100C63E20 /* OHGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 09E8E6F91453175100C63E20 /* OHGridView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		09E8E6FC1453175100C63E20 /* OHGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E6FA1453175100C63E20 /* OHGridView.m */; };
-		09E8E6FF1453176400C63E20 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 09E8E6FD1453176400C63E20 /* LICENSE */; };
-		09E8E7001453176400C63E20 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 09E8E6FE1453176400C63E20 /* README.md */; };
+		090B5EB715FD05190054FA12 /* OHGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E8E6FA1453175100C63E20 /* OHGridView.m */; };
+		090B5EBA15FD05260054FA12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 090B5EB915FD05260054FA12 /* UIKit.framework */; };
+		09F6EC7715FD009500A493F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09E8E6C314530B5400C63E20 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		09F6EC7415FD009500A493F3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		090B5EB915FD05260054FA12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		09E8E6C314530B5400C63E20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		09E8E6D414530BA300C63E20 /* OHGridView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OHGridView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		09E8E6DD14530BA300C63E20 /* OHGridView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OHGridView-Info.plist"; sourceTree = "<group>"; };
-		09E8E6E514530D1100C63E20 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = ../../../../../../../../Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.2.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = "<group>"; };
 		09E8E6F91453175100C63E20 /* OHGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHGridView.h; sourceTree = "<group>"; };
 		09E8E6FA1453175100C63E20 /* OHGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHGridView.m; sourceTree = "<group>"; };
 		09E8E6FD1453176400C63E20 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		09E8E6FE1453176400C63E20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		09E8E6FE1453176400C63E20 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		09F6EC7615FD009500A493F3 /* libOHGridView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOHGridView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		09E8E6D114530BA300C63E20 /* Frameworks */ = {
+		09F6EC7315FD009500A493F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				090B5EBA15FD05260054FA12 /* UIKit.framework in Frameworks */,
+				09F6EC7715FD009500A493F3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,7 +50,6 @@
 		09E8E6B514530B5300C63E20 = {
 			isa = PBXGroup;
 			children = (
-				09E8E6FE1453176400C63E20 /* README.md */,
 				09E8E6C514530B5400C63E20 /* OHGridView */,
 				09E8E6C214530B5400C63E20 /* Frameworks */,
 				09E8E6C114530B5400C63E20 /* Products */,
@@ -62,7 +59,7 @@
 		09E8E6C114530B5400C63E20 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				09E8E6D414530BA300C63E20 /* OHGridView.framework */,
+				09F6EC7615FD009500A493F3 /* libOHGridView.a */,
 			);
 			path = Products;
 			sourceTree = "<group>";
@@ -70,7 +67,7 @@
 		09E8E6C214530B5400C63E20 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				09E8E6E514530D1100C63E20 /* UIKit.framework */,
+				090B5EB915FD05260054FA12 /* UIKit.framework */,
 				09E8E6C314530B5400C63E20 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -79,44 +76,24 @@
 		09E8E6C514530B5400C63E20 /* OHGridView */ = {
 			isa = PBXGroup;
 			children = (
+				09E8E6FE1453176400C63E20 /* README.md */,
+				09E8E6FD1453176400C63E20 /* LICENSE */,
 				09E8E6F91453175100C63E20 /* OHGridView.h */,
 				09E8E6FA1453175100C63E20 /* OHGridView.m */,
-				09E8E6C614530B5400C63E20 /* Supporting Files */,
 			);
 			name = OHGridView;
 			sourceTree = SOURCE_ROOT;
 		};
-		09E8E6C614530B5400C63E20 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				09E8E6FD1453176400C63E20 /* LICENSE */,
-				09E8E6DD14530BA300C63E20 /* OHGridView-Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		09E8E6E914530DDE00C63E20 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				09E8E6FB1453175100C63E20 /* OHGridView.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		09E8E6D314530BA300C63E20 /* OHGridView */ = {
+		09F6EC7515FD009500A493F3 /* OHGridView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 09E8E6E214530BA300C63E20 /* Build configuration list for PBXNativeTarget "OHGridView" */;
+			buildConfigurationList = 09F6EC7F15FD009500A493F3 /* Build configuration list for PBXNativeTarget "OHGridView" */;
 			buildPhases = (
-				09E8E6D014530BA300C63E20 /* Sources */,
-				09E8E6D114530BA300C63E20 /* Frameworks */,
-				09E8E6D214530BA300C63E20 /* Resources */,
-				09E8E6E914530DDE00C63E20 /* Headers */,
+				09F6EC7215FD009500A493F3 /* Sources */,
+				09F6EC7315FD009500A493F3 /* Frameworks */,
+				09F6EC7415FD009500A493F3 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -124,8 +101,8 @@
 			);
 			name = OHGridView;
 			productName = OHGridView;
-			productReference = 09E8E6D414530BA300C63E20 /* OHGridView.framework */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 09F6EC7615FD009500A493F3 /* libOHGridView.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -148,46 +125,17 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				09E8E6D314530BA300C63E20 /* OHGridView */,
-				09E8E6EB145311CF00C63E20 /* Universal Framework */,
+				09F6EC7515FD009500A493F3 /* OHGridView */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		09E8E6D214530BA300C63E20 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				09E8E6FF1453176400C63E20 /* LICENSE in Resources */,
-				09E8E7001453176400C63E20 /* README.md in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		09E8E6EF145311D400C63E20 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Sets the target folders and the final framework product.\nFMK_NAME=OHGridView\nFMK_VERSION=A\n\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n\n# Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator\n\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\n# Creates and renews the final product folder.\nmkdir -p \"${INSTALL_DIR}\"\nmkdir -p \"${INSTALL_DIR}/Versions\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources\"\nmkdir -p \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers\"\n\n# Creates the internal links.\n# It MUST uses relative path, otherwise will not work when the folder is copied/moved.\nln -s \"${FMK_VERSION}\" \"${INSTALL_DIR}/Versions/Current\"\nln -s \"Versions/Current/Headers\" \"${INSTALL_DIR}/Headers\"\nln -s \"Versions/Current/Resources\" \"${INSTALL_DIR}/Resources\"\nln -s \"Versions/Current/${FMK_NAME}\" \"${INSTALL_DIR}/${FMK_NAME}\"\n\n# Copies the headers and resources files to the final product folder.\ncp -R \"${DEVICE_DIR}/Headers/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Headers/\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/\"\n\n# Removes the binary and header from the resources folder.\nrm -r \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/Headers\" \"${INSTALL_DIR}/Versions/${FMK_VERSION}/Resources/${FMK_NAME}\"\n\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/Versions/${FMK_VERSION}/${FMK_NAME}\"\n\nrm -r \"${WRK_DIR}\"";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		09E8E6D014530BA300C63E20 /* Sources */ = {
+		09F6EC7215FD009500A493F3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09E8E6FC1453175100C63E20 /* OHGridView.m in Sources */,
+				090B5EB715FD05190054FA12 /* OHGridView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,19 +148,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -223,81 +160,28 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		09E8E6E314530BA300C63E20 /* Debug */ = {
+		09F6EC8015FD009500A493F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				DEAD_CODE_STRIPPING = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				INFOPLIST_FILE = "OHGridView-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				LINK_WITH_STANDARD_LIBRARIES = NO;
-				MACH_O_TYPE = mh_object;
-				MACOSX_DEPLOYMENT_TARGET = "";
-				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = framework;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
-		09E8E6E414530BA300C63E20 /* Release */ = {
+		09F6EC8115FD009500A493F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				DEAD_CODE_STRIPPING = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				INFOPLIST_FILE = "OHGridView-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				LINK_WITH_STANDARD_LIBRARIES = NO;
-				MACH_O_TYPE = mh_object;
-				MACOSX_DEPLOYMENT_TARGET = "";
-				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
-		09E8E6ED145311D000C63E20 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		09E8E6EE145311D000C63E20 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -313,20 +197,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		09E8E6E214530BA300C63E20 /* Build configuration list for PBXNativeTarget "OHGridView" */ = {
+		09F6EC7F15FD009500A493F3 /* Build configuration list for PBXNativeTarget "OHGridView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				09E8E6E314530BA300C63E20 /* Debug */,
-				09E8E6E414530BA300C63E20 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		09E8E6EC145311D000C63E20 /* Build configuration list for PBXAggregateTarget "Universal Framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				09E8E6ED145311D000C63E20 /* Debug */,
-				09E8E6EE145311D000C63E20 /* Release */,
+				09F6EC8015FD009500A493F3 /* Debug */,
+				09F6EC8115FD009500A493F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
