@@ -10,8 +10,6 @@
 #import "OHGridView.h"
 
 @interface GridViewExampleViewController : UIViewController
-    <UIAlertViewDelegate, OHGridViewDelegate, OHGridViewDataSource> {
-	NSArray* items;
-}
+    <UIAlertViewDelegate, OHGridViewDelegate, OHGridViewDataSource>
 @end
 

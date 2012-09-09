@@ -8,12 +8,22 @@
 
 #import "GridViewExampleViewController.h"
 
+@interface GridViewExampleViewController ()
+@property(nonatomic, retain) NSArray* items;
+@end
+
+
+
 @implementation GridViewExampleViewController
+@synthesize items = _items;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Setup & Teardown
 
 -(void)viewDidLoad
 {
 	// Images are courtesy of http://www.iconspedia.com/pack/iphone/
-	items = [[NSArray alloc] initWithObjects:
+	_items = [[NSArray alloc] initWithObjects:
 			 @"browser",@"calc",@"chat-blank",@"clock",@"graph",@"ipod",
 			 @"mail",@"map",@"notes",@"photo",@"tools",@"wallpaper",@"weather",
 			 nil];
@@ -22,9 +32,27 @@
 	((OHGridView*)self.view).columnsCount = 2;
 }
 
+-(void)viewDidUnload
+{
+	noarc_release(items);
+	self.items = nil;
+}
+
+#if ! ARC_ENABLED
+-(void)dealloc
+{
+    [_items release];
+    [super dealloc];
+}
+#endif
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - OHGridView Delegate & DataSource
+
 -(NSUInteger)numberOfItemsInOHGridView:(OHGridView *)aGridView
 {
-	return [items count];
+	return [self.items count];
 }
 
 -(OHGridViewCell*)OHGridView:(OHGridView *)aGridView cellAtIndexPath:(NSIndexPath *)indexPath
@@ -46,7 +74,7 @@
 	}
 	
 	NSUInteger i = [aGridView indexForIndexPath:indexPath];
-	NSString* itemName = [items objectAtIndex:i];
+	NSString* itemName = [self.items objectAtIndex:i];
 	cell.textLabel.text = itemName;
 	cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-64x64.png",itemName]];
 	
@@ -56,7 +84,7 @@
 -(void)OHGridView:(OHGridView *)aGridView didSelectCellAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSUInteger idx = [aGridView indexForIndexPath:indexPath];
-	NSString* msg = [items objectAtIndex:idx];
+	NSString* msg = [self.items objectAtIndex:idx];
 	UIAlertView* alert = noarc_autorelease([[UIAlertView alloc] initWithTitle:@"Tap"
                                                                       message:msg
                                                                      delegate:self
@@ -64,10 +92,17 @@
                                                             otherButtonTitles:nil]);
 	[alert show];
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - UIAlertView Delegate
+
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
 	[(OHGridView*)self.view deselectSelectedCellsAnimated:YES];
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Interface Orientation
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
@@ -77,12 +112,6 @@
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
 	((OHGridView*)self.view).columnsCount = UIInterfaceOrientationIsPortrait(interfaceOrientation) ? 2 : 4;
-}
-
--(void)viewDidUnload
-{
-	noarc_release(items);
-	items = nil;
 }
 
 @end

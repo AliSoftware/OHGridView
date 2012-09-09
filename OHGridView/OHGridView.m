@@ -114,13 +114,20 @@
 -(void)layoutSubviews
 {
 	const CGFloat kLabelHeight = 21;
+    
 	CGRect r = CGRectInset(self.bounds,5,5);
-	r.size.height -= kLabelHeight;
+    if (self.textLabel.text)
+    {
+        r.size.height -= kLabelHeight;
+    }
 	self.imageView.frame = r;
 	
 	r = CGRectInset(self.bounds,5,5);
-	r.size.height = kLabelHeight;
-	r.origin.y = CGRectGetMaxY(self.imageView.frame);
+    if (self.imageView.image)
+    {
+        r.size.height = kLabelHeight;
+        r.origin.y = CGRectGetMaxY(self.imageView.frame);
+    }
 	self.textLabel.frame = r;
 	
 	self.backgroundView.frame = self.bounds;
@@ -457,8 +464,8 @@
 				cell = [self.gridViewDataSource OHGridView:self cellAtIndexPath:path];
 				cell.indexPath = path;
 				cell.selected = (path == self.indexPathForSelectedCell);
+                [self insertSubview:cell atIndex:self.visibleCells.count];
 				[self.visibleCells addObject:cell];
-                [self insertSubview:cell atIndex:itemIndex];
 			}
 			cell.frame = CGRectInset( CGRectMake(col*w, row*self.rowHeight,w,self.rowHeight) , self.marginWidth, self.marginWidth);
 			if ([self.gridViewDelegate respondsToSelector:@selector(OHGridView:willDisplayCell:forIndexPath:)])
