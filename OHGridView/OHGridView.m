@@ -113,19 +113,19 @@
 
 -(void)layoutSubviews
 {
-	const CGFloat kLabelHeight = 21;
+	CGFloat labelHeight = self.textLabel.font.lineHeight;
     
 	CGRect r = CGRectInset(self.bounds,5,5);
     if (self.textLabel.text)
     {
-        r.size.height -= kLabelHeight;
+        r.size.height -= labelHeight;
     }
 	self.imageView.frame = r;
 	
 	r = CGRectInset(self.bounds,5,5);
     if (self.imageView.image)
     {
-        r.size.height = kLabelHeight;
+        r.size.height = labelHeight;
         r.origin.y = CGRectGetMaxY(self.imageView.frame);
     }
 	self.textLabel.frame = r;
